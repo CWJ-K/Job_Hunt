@@ -111,6 +111,7 @@ class Job104Spider():
             #'salary_high': salary_high,  # 薪資最高
             #'salary_low': salary_low,  # 薪資最低
             'tags': job_data['tags'],  # 標籤
+            'updated_date': None,
         }
         return job
 

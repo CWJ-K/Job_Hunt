@@ -1,5 +1,7 @@
 from crawler import Job104Spider
 import yaml
+import pandas as pd
+
 
 with open('parameters.yaml', 'r') as f:
     parameters = yaml.safe_load(f)
@@ -26,4 +28,18 @@ max_mun = 1
 job104_spider = Job104Spider()
 jobs = job104_spider.search('data engineer', max_mun, filter_params=filter_params)
 jobs = [job104_spider.search_job_transform(job) for job in jobs]
-print(jobs[0])
+
+result = pd.DataFrame()
+for job in jobs:
+    print(job)
+    data = pd.DataFrame.from_dict(job).astype('object')
+    
+    result = result.append(data, ignore_index=True)
+
+with pd.ExcelWriter('demo.xlsx', engine="openpyxl", mode='a', if_sheet_exists='new') as writer: 
+    result.to_excel(writer, sheet_name='Sheet1', index=False)
+
+
+
+
+
