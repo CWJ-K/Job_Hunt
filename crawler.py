@@ -95,7 +95,6 @@ class Job104Spider():
             #'type': job_data['jobType'],
             'name': job_data['jobName'],  # 職缺名稱
             # 'desc': job_data['descSnippet'],  # 描述
-            'appear_date': job_data['appearDate'],  # 更新日期
             #'apply_num': apply_num,
             #'apply_text': job_data['applyDesc'],  # 應徵人數描述
             'company_name': job_data['custName'],  # 公司名稱
@@ -110,7 +109,8 @@ class Job104Spider():
             #'salary': job_data['salaryDesc'],  # 薪資描述
             #'salary_high': salary_high,  # 薪資最高
             #'salary_low': salary_low,  # 薪資最低
-            'tags': job_data['tags'],  # 標籤
+            #'tags': job_data['tags'],  # 標籤
+            'appear_date': job_data['appearDate'],  # 更新日期
             'updated_date': None,
         }
         return job

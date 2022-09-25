@@ -23,22 +23,41 @@ filter_params = {
 }
 
 
-max_mun = 1
+max_mun = 50
 
 job104_spider = Job104Spider()
-jobs = job104_spider.search('data engineer', max_mun, filter_params=filter_params)
+jobs = job104_spider.search('data%20engineer%20數據工程師', max_mun, filter_params=filter_params)
 jobs = [job104_spider.search_job_transform(job) for job in jobs]
 
 result = pd.DataFrame()
 for job in jobs:
-    print(job)
-    data = pd.DataFrame.from_dict(job).astype('object')
     
-    result = result.append(data, ignore_index=True)
+    data = pd.DataFrame([job])
+    result = result.append(data, ignore_index=False)
+    result.sort_values(by=['job_id'])
 
-with pd.ExcelWriter('demo.xlsx', engine="openpyxl", mode='a', if_sheet_exists='new') as writer: 
-    result.to_excel(writer, sheet_name='Sheet1', index=False)
 
+existing_file = pd.read_excel('demo.xlsx', index_col=None)
+
+new_job = set(result['job_id'])
+existing_job = set(existing_file['job_id'])
+
+non_existing_job = sorted(new_job-existing_job)
+
+
+store_data = pd.DataFrame()
+
+for job_id in non_existing_job:
+    data = result.loc[result['job_id'] == job_id]
+
+    store_data = store_data.append(data, ignore_index=False)
+
+print(store_data)
+
+existing_row = len(existing_file)
+
+with pd.ExcelWriter('demo.xlsx', engine='openpyxl', if_sheet_exists='overlay', mode='a') as writer:
+    result.to_excel(writer, sheet_name='Sheet1', index=False, header= False, startrow=existing_row + 1)
 
 
 
