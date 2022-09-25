@@ -1,3 +1,4 @@
+from uu import Error
 from crawler import Job104Spider
 import yaml
 import pandas as pd
@@ -38,27 +39,21 @@ for job in jobs:
 
 
 existing_file = pd.read_excel('demo.xlsx', index_col=None)
-
-new_job = set(result['job_id'])
 existing_job = set(existing_file['job_id'])
+new_job = list(result['job_id'])
 
-non_existing_job = sorted(new_job-existing_job)
 
+for job_id in new_job:
+    if job_id in existing_job:
+        update_date = result.loc[result['job_id'] == job_id, 'appear_date'].values[0]
+        existing_file.loc[existing_file['job_id'] == job_id, ['updated_date']] = update_date
+    else:
+        data = result.loc[result['job_id'] == job_id]
+        existing_file = existing_file.append(data, ignore_index=False)
 
-store_data = pd.DataFrame()
-
-for job_id in non_existing_job:
-    data = result.loc[result['job_id'] == job_id]
-
-    store_data = store_data.append(data, ignore_index=False)
-
-print(store_data)
-
-existing_row = len(existing_file)
-
-with pd.ExcelWriter('demo.xlsx', engine='openpyxl', if_sheet_exists='overlay', mode='a') as writer:
-    result.to_excel(writer, sheet_name='Sheet1', index=False, header= False, startrow=existing_row + 1)
-
+with pd.ExcelWriter('demo.xlsx', engine='xlsxwriter') as writer:
+    existing_file.to_excel(writer, sheet_name='Sheet1', index=False, header= True)
+    #result.to_excel(writer, sheet_name='Sheet1', index=False, header= True)
 
 
 

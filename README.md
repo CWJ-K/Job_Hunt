@@ -34,7 +34,8 @@ The product can crawl previous 7 days' job information from the 104 website ever
 # Progress
 - [x] structure of the project
 - [ ] create a excel file and check if it exists
-  - [ ] for the first time create an excel file, set a empty file, but with a header
-    - [ ] apped data, only the first time, header is kept
+  - [ ] function for the file created first or exist => if there are database, we do not need this one, switch to check data schema
+    - [ ] file does not store properly　=> lose data and errors emerge in the script => database instead of excel
 - [ ] deal with company tags(type: list) become two rows
 - [ ] clear advertisement data
+- [ ] make sure datatype
