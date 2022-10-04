@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 
-from ...src.task.processer import check_job_exists, renew_updated_date, add_new_job
+from ...src.task.processer import check_job_exists, renew_updated_date, add_new_job, is_related_job
 
 @pytest.mark.parametrize(
     ('current_job', 'existed_job'),
@@ -62,3 +62,9 @@ def test_renew_updated_date(current_job, existed_data, expected_result):
 def test_add_new_job(current_job, existed_data, expected_result):
     existed_data = add_new_job(current_job, existed_data)
     pytest.assume(existed_data.equals(expected_result))
+
+
+def test_is_related_job():
+    current_job = pd.DataFrame({'job_title': ['前端工程師']})
+
+    assert is_related_job(current_job)==False
