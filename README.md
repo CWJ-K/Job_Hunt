@@ -45,3 +45,10 @@ The product can crawl previous 7 days' job information from the 104 website ever
 - [ ] deal with company tags(type: list) become two rows
 - [ ] clear advertisement data
 - [ ] make sure datatype
+
+
+# Run
+```bash
+  python src/main.py
+
+```

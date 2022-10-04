@@ -18,12 +18,12 @@ with open(YAML_PATH, 'r', encoding='utf-8') as f:
 filter_params = {
     'area': parameters['filter_params']['area'],
     'isnew': parameters['filter_params']['isnew'],  
-    'jobexp': parameters['filter_params']['jobexp'],
+    #'jobexp': parameters['filter_params']['jobexp'],
     'excludeJobKeyword': parameters['filter_params']['excludeJobKeyword'],
     'kwop': parameters['filter_params']['kwop'],
 }
 
-max_mun = 50
+max_mun = 300
 
 job104_spider = Job104Spider()
 jobs = job104_spider.search('data%20engineer%20數據工程師', max_mun, filter_params=filter_params)
@@ -34,7 +34,6 @@ existed_data = read_data_from_mysql()
 
 final_data = process_data(existed_data, new_data)
 
-print(final_data['job_url'])
 update_data_to_mysql_by_pandas(final_data, 'jobs')
 
 
