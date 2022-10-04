@@ -30,12 +30,18 @@ The product can crawl previous 7 days' job information from the 104 website ever
 4.  environment:
     * local => free cloud
 
+5. unit testing:
+
+6. Packages
+   * loguru
+   * sqlalchemy
+   * pytest_check
+   * pytest-assume
+   * pymysql
 
 # Progress
 - [x] structure of the project
-- [ ] create a excel file and check if it exists
-  - [ ] function for the file created first or exist => if there are database, we do not need this one, switch to check data schema
-    - [ ] file does not store properly　=> lose data and errors emerge in the script => database instead of excel
+- [x] create a data schema in mysql
 - [ ] deal with company tags(type: list) become two rows
 - [ ] clear advertisement data
 - [ ] make sure datatype
