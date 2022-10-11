@@ -21,7 +21,7 @@ filter_params = {
     'kwop': parameters['filter_params']['kwop'],
 }
 
-max_mun = 300
+max_mun = 1000
 
 job104_spider = Job104Spider()
 jobs = job104_spider.search('data%20engineer%20數據工程師', max_mun, filter_params=filter_params)
